@@ -20,3 +20,6 @@ class CRUDDebit(CRUDBase[Debit, DebitCreate, DebitUpdate]):
 
     def get_by_owner(self, db: Session, *, owner_id: int) -> Optional[Debit]:
         return db.query(Debit).filter(Debit.owner_id == owner_id).first()
+
+
+debit = CRUDDebit(Debit)
