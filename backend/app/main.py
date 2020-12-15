@@ -12,7 +12,6 @@ app = FastAPI(
     openapi_url=f"{config.API_V1_STR}/openapi.json",
 )
 
-
 app.include_router(api_router, prefix=config.API_V1_STR)
 
 if __name__ == "__main__":
