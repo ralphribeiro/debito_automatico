@@ -16,8 +16,4 @@ class Debit(Base):
     """
     id = Column(Integer, primary_key=True, index=True)
     actived = Column(Boolean(), index=True, default=False)
-    request_date = Column(DateTime, index=True)
-    approval_date = Column(DateTime, index=True)
-    approval_owner_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     owner_id = Column(Integer, ForeignKey("user.id"))
-    owner = relationship("User", back_populates="debit")
