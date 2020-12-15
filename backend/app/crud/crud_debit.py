@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Dict, Optional, Union
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
@@ -20,6 +20,21 @@ class CRUDDebit(CRUDBase[Debit, DebitCreate, DebitUpdate]):
 
     def get_by_owner(self, db: Session, *, owner_id: int) -> Optional[Debit]:
         return db.query(Debit).filter(Debit.owner_id == owner_id).first()
+
+    def update_status(self, db: Session, *,
+                      db_obj: Debit,
+                      obj_in: Union[DebitUpdate, Dict[str, Any]]) -> Debit:
+
+        if isinstance(obj_in, dict):
+            update_data = obj_in
+        else:
+            update_data = obj_in.dict(exclude_unset=True)
+
+        return super().update(db, db_obj=db_obj, obj_in=obj_in)
+
+    def get_multi_by_owner(self, db: Session, *,
+                           skip: int = 0, limit: int = 100) -> List[Dict]:
+        return (db.query(self.model).offset(skip).limit(limit).all())
 
 
 debit = CRUDDebit(Debit)
