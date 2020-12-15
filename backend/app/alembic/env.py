@@ -1,4 +1,4 @@
-import os
+from os import getenv
 from logging.config import fileConfig
 
 from alembic import context
@@ -29,7 +29,7 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    return os.getenv("DATABASE_URL")
+    return getenv("DATABASE_URL")
 
 
 def run_migrations_offline():
