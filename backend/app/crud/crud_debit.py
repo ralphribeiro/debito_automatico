@@ -32,8 +32,8 @@ class CRUDDebit(CRUDBase[Debit, DebitCreate, DebitUpdate]):
 
         return super().update(db, db_obj=db_obj, obj_in=obj_in)
 
-    def get_multi_by_owner(self, db: Session, *,
-                           skip: int = 0, limit: int = 100) -> List[Dict]:
+    def get_multi(self, db: Session, *,
+                  skip: int = 0, limit: int = 100) -> List[Dict]:
         return (db.query(self.model).offset(skip).limit(limit).all())
 
 

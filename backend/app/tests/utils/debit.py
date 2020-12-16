@@ -13,6 +13,6 @@ def create_debit_request(db: Session, *,
     if not owner_id:
         user = create_random_user(db)
         owner_id = user.id
-    debit_in = DebitCreate(request_date=datetime.utcnow())
+    debit_in = DebitCreate()
     return crud.debit.create_with_owner(db=db, obj_in=debit_in,
                                         owner_id=owner_id)

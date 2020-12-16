@@ -11,9 +11,9 @@ from app.tests.utils.utils import random_email, random_lower_string
 
 def test_get_superuser_me(client: TestClient,
                           superuser_token_headers: Dict[str, str]):
-    req = client.get(f"{config.API_V1_STR}/users/me",
+    res = client.get(f"{config.API_V1_STR}/users/me",
                      headers=superuser_token_headers)
-    current_user = req.json()
+    current_user = res.json()
     assert current_user
     assert current_user["is_active"] is True
     assert current_user["is_superuser"] is True
@@ -21,9 +21,9 @@ def test_get_superuser_me(client: TestClient,
 
 def test_get_normal_user_me(client: TestClient,
                             normal_user_token_headers: Dict[str, str]):
-    req = client.get(f"{config.API_V1_STR}/users/me",
+    res = client.get(f"{config.API_V1_STR}/users/me",
                      headers=normal_user_token_headers)
-    current_user = req.json()
+    current_user = res.json()
     assert current_user
     assert current_user["is_active"] is True
     assert current_user["is_superuser"] is False
@@ -36,12 +36,12 @@ def test_get_existing_user(client: TestClient,
     user_in = UserCreate(email=username, password=password)
     user = crud.user.create(db, obj_in=user_in)
     user_id = user.id
-    r = client.get(f"{config.API_V1_STR}/users/{user_id}",
-                   headers=superuser_token_headers)
+    res = client.get(f"{config.API_V1_STR}/users/{user_id}",
+                     headers=superuser_token_headers)
 
-    assert 200 <= r.status_code < 300
+    assert 200 <= res.status_code < 300
 
-    api_user = r.json()
+    api_user = res.json()
     existing_user = crud.user.get_by_email(db, email=username)
 
     assert existing_user
@@ -60,10 +60,10 @@ def test_retrieve_users(db: Session, client: TestClient,
     user_in2 = UserCreate(email=username2, password=password2)
     crud.user.create(db, obj_in=user_in2)
 
-    r = client.get(f"{config.API_V1_STR}/users/",
-                   headers=superuser_token_headers)
+    res = client.get(f"{config.API_V1_STR}/users/",
+                     headers=superuser_token_headers)
 
-    all_users = r.json()
+    all_users = res.json()
 
     assert len(all_users) > 1
     for item in all_users:
@@ -76,12 +76,12 @@ def test_create_user_new_email(client: TestClient,
     username = random_email()
     password = random_lower_string()
     data = {"email": username, "password": password}
-    r = client.post(f"{config.API_V1_STR}/users/",
-                    headers=superuser_token_headers, json=data)
+    res = client.post(f"{config.API_V1_STR}/users/",
+                      headers=superuser_token_headers, json=data)
 
-    assert 200 <= r.status_code < 300
+    assert 200 <= res.status_code < 300
 
-    created_user = r.json()
+    created_user = res.json()
     user = crud.user.get_by_email(db, email=username)
 
     assert user

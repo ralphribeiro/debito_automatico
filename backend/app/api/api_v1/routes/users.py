@@ -1,9 +1,6 @@
-from app.db.session import SessionLocal
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException, status
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
@@ -18,7 +15,7 @@ def read_users(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser)
 ) -> Any:
     """
     Retrieve users.
@@ -30,7 +27,7 @@ def read_users(
 @router.get("/me", response_model=schemas.User)
 def read_user_me(
     db: Session = Depends(deps.get_db),
-    current_user: models.User = Depends(deps.get_current_active_user),
+    current_user: models.User = Depends(deps.get_current_active_user)
 ) -> Any:
     """
     Get current user.
@@ -59,7 +56,7 @@ def create_user(
 def read_user_by_id(
     user_id: int,
     current_user: models.User = Depends(deps.get_current_active_user),
-    db: Session = Depends(deps.get_db),
+    db: Session = Depends(deps.get_db)
 ) -> Any:
     """
     Get a specific user by id.
