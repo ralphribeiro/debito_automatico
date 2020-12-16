@@ -7,6 +7,7 @@ from app.core import config
 
 app = FastAPI(
     title=config.PROJECT_NAME,
+    version="0.1",
     docs_url=f"{config.API_V1_STR}/docs",
     redoc_url=None,
     openapi_url=f"{config.API_V1_STR}/openapi.json",
