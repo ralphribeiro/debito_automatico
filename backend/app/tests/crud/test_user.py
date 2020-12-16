@@ -1,5 +1,4 @@
 from fastapi.encoders import jsonable_encoder
-from pydantic.errors import EmailError
 from sqlalchemy.orm import Session
 
 

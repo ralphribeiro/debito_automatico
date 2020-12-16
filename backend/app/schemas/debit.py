@@ -6,23 +6,20 @@ from pydantic import BaseModel
 
 # Shared properties
 class DebitBase(BaseModel):
-    actived: Optional[bool] = False
+    status: Optional[str] = None
 
 
 # Properties to receive on Debit creation
 class DebitCreate(DebitBase):
-    request_date: datetime
+    pass
+
 
 # Properties to receive on Debit update
-
-
 class DebitUpdate(DebitBase):
-    approval_owner_id: int
-    approval_date: datetime
+    status: str
+
 
 # Properties shared by models stored in DB
-
-
 class DebitInDBBase(DebitBase):
     id: int
     owner_id: int

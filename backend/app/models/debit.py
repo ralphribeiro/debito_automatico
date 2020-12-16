@@ -1,8 +1,7 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, ForeignKey, Integer, DateTime, Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.schema import Index
 
 from app.db.base_class import Base
 
@@ -15,5 +14,6 @@ class Debit(Base):
     Debit Model class.
     """
     id = Column(Integer, primary_key=True, index=True)
-    actived = Column(Boolean(), index=True, default=False)
+    status = Column(String, index=True, default=None)
     owner_id = Column(Integer, ForeignKey("user.id"))
+    owner = relationship("User")
