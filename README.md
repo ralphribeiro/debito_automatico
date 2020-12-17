@@ -60,3 +60,6 @@ avaliação backend T10
 [Flower](http://localhost:5555/)
 
 
+* OBS: não implementado o fluxo de notificação de email, somente uma função que simula o envio desses emails em debito_automatico/backend/app/tasks/send_email.py
+
+
