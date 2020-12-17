@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build e roda contain
-docker-compose up -d
+docker-compose up -d --build
 
 # Hack to wait for postgres container to be up before running alembic migrations
 sleep 5;
