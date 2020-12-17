@@ -25,6 +25,7 @@ avaliação backend T10
 ## Como rodar o projeto
 - Clone com git
 `git clone https://github.com/ralphribeiro/debito_automatico.git`
+`cd debito_automatico`
 
 - Constrói containers
 `docker-compose build`
