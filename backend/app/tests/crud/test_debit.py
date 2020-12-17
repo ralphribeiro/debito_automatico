@@ -56,5 +56,5 @@ def test_delete_automatic_debit(db: Session):
     debit = crud.debit.create_with_owner(db=db,
                                          obj_in=debit_in, owner_id=user.id)
     debit2 = crud.debit.remove(db, id=debit.id)
-    debit3 = crud.debit.get_by_owner(db, owner_id=debit.id)
+    debit3 = crud.debit.get(db, id=debit.id)
     assert debit3 is None

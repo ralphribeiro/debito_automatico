@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
 from app.api import deps
+from app.core.celery_app import celery_app
 
 router = APIRouter()
 
@@ -19,7 +20,7 @@ class StatusRequest(str, Enum):
 
 
 @router.get("/request", response_model=schemas.Debit)
-async def get_automatic_debit(
+async def get_automatic_debit_request(
     db: Session = Depends(deps.get_db),
     current_user: models.User = Depends(deps.get_current_active_user)
 ) -> Any:
@@ -47,13 +48,15 @@ async def update_status(
     Update Automatic Debit Status.
     """
     debit = crud.debit.get(db, id=debit_id)
-    print(debit)
     if not debit:
         raise HTTPException(status_code=sts.HTTP_404_NOT_FOUND,
                             detail="Not Found automatic debit request by id")
 
     obj_in = DebitUpdate(status=status)
-    # if status_in == StatusRequest.canceled:
+    if status == StatusRequest.canceled or StatusRequest.approved:
+        user = crud.user.get(db, id=debit.owner_id)
+        celery_app.send_task("app.tasks.send_email.email_task",
+                             args=[status, user.email])
 
     debit_out = crud.debit.update_status(db, db_obj=debit, obj_in=obj_in)
     return debit_out
