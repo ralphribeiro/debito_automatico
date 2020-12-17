@@ -6,10 +6,6 @@ docker-compose up -d
 # Hack to wait for postgres container to be up before running alembic migrations
 sleep 5;
 
-# Create secret_key
-myVar=$(openssl rand -hex 32)
-export SECRET_KEY=$myVar
-
 # Run migrations
 docker-compose run --rm backend alembic upgrade head
 

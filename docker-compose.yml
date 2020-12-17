@@ -1,5 +1,39 @@
 version: '3.7'
 services:
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - "5673:15672"
+
+  redis:
+      image: redis
+      volumes:
+        - "redis:/data"
+      ports:
+        - 6379:6379
+
+  worker:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: celery -A app.tasks.send_email worker --loglevel=DEBUG -c 1
+
+  flower:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: flower --broker=amqp://admin:mypass@rabbit:5672 --broker_api=http://admin:mypass@rabbit:15672/api/ --port=5555
+    ports:
+        - 5555:5555
+    depends_on:
+      - "redis"
+      - "rabbit"
+      - "worker"
+
   postgres:
     image: postgres:12
     restart: always
@@ -40,7 +74,6 @@ services:
     environment:
       PYTHONPATH: .
       DATABASE_URL: 'postgresql://postgres:postgrespassword@postgres:5432/app'
-      DATABASE_URL_TEST: 'postgresql://postgres:postgrespassword@postgres:5432/app_test'
       FIRST_SUPERUSER: 'superuser@admin.com'
       FIRST_SUPERUSER_PASSWORD: 'superuserpassword'
     depends_on:
@@ -49,3 +82,4 @@ services:
 volumes:
   db-data:
   pgadmin:
+  redis:
