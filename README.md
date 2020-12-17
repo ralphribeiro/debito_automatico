@@ -1,8 +1,13 @@
-# debito_automatico
+## debito_automatico
 
 avaliação backend T10
 
-# Não usar em produção
+
+# ------------ Não usar em produção ------------
+
+
+
+
 
 ## Tecnologias
 - Linguagem: [Python](https://www.python.org/)
@@ -13,6 +18,8 @@ avaliação backend T10
 - Tarefas: [Celery](https://pypi.org/project/celery/) e [Flower](https://flower.readthedocs.io/en/latest/)
 - Broker: [RabbitMQ](https://www.rabbitmq.com/)
 - Cache: [Redis](https://redis.io/)
+
+
 
 
 ## Como rodar o projeto
@@ -35,9 +42,14 @@ avaliação backend T10
 `docker-compose run backend pytest`
 
 
+
+
+
 ## End points
 
 [Docs](http://localhost:8000/api/v1/docs)
+
+
 
 
 ### Suporte
