@@ -59,7 +59,7 @@ avaliação backend T10
 
 - número usuários = 5000
 - taxa de novas requisições de usuários = 100
-- host: http://<seu ip local>:8000/api/v1
+- host: http://*seu ip local*:8000/api/v1
 
 
 
