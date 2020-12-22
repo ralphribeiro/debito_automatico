@@ -25,6 +25,7 @@ avaliação backend T10
 ## Como rodar o projeto
 - Clone com git
 `git clone https://github.com/ralphribeiro/debito_automatico.git`
+`cd debito_automatico`
 
 - Constrói containers
 `docker-compose build`
@@ -67,4 +68,9 @@ avaliação backend T10
 [Flower](http://localhost:5555/)
 
 
+<<<<<<< HEAD
+=======
+* OBS: não implementado o fluxo de notificação de email, somente uma função que simula o envio desses emails em debito_automatico/backend/app/tasks/send_email.py
+
+>>>>>>> fcf897459a26747fe057ddf9e5411ad9e7d7f5b5
 
