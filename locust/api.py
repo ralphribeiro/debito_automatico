@@ -1,11 +1,8 @@
 import random
 import string
 
-# from locust.contrib.fasthttp import FastHttpUser
 from locust import HttpUser, task, between
 
-
-# base_url = "http://localhost:8000/api/v1"
 
 su_login_data = {"username": "superuser@admin.com",
                  "password": "superuserpassword"}
@@ -20,7 +17,6 @@ def random_email() -> str:
 
 
 class ApiUser(HttpUser):
-    # host = base_url
     wait_time = between(0.5, 5)
 
     def __init__(self, *args, **kwargs):

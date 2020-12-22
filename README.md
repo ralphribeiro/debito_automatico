@@ -35,8 +35,8 @@ avaliação backend T10
 - Aplica dados iniciais
 `docker-compose run --rm backend python3 app/initial_data.py`
 
-- Sobe containers
-`docker-compose up -d`
+- Sobe containers com 4 workers de teste de carga
+`docker-compose up -d --scale worker_locust=4`
 
 - Roda testes
 `docker-compose run backend pytest`
@@ -50,6 +50,14 @@ avaliação backend T10
 [Docs](http://localhost:8000/api/v1/docs)
 
 
+## Interface gráfica do teste de carga
+
+[Locust](http://0.0.0.0:8089/)
+
+- número usuários = 5000
+- taxa de novas requisições de usuários = 100
+- host: http://<seu ip local>:8000/api/v1
+
 
 
 ### Suporte
@@ -57,5 +65,6 @@ avaliação backend T10
 [pgAdmin](http://localhost:5050/)
 
 [Flower](http://localhost:5555/)
+
 
 
