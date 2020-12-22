@@ -11,6 +11,8 @@ avaliação backend T10
 
 ## Tecnologias
 - Linguagem: [Python](https://www.python.org/)
+- Testes: [pytest](https://docs.pytest.org/en/latest/)
+- Testes de carga: [locust](https://locust.io/)
 - API framework - [FastApi](https://fastapi.tiangolo.com/)
 - ORM: [SQLAlchemy](https://www.sqlalchemy.org/link)
 - Banco de dados relacional: [PostgreSQL](https://www.postgresql.org/) e [pgAdmin](https://www.pgadmin.org/)
@@ -68,9 +70,4 @@ avaliação backend T10
 [Flower](http://localhost:5555/)
 
 
-<<<<<<< HEAD
-=======
-* OBS: não implementado o fluxo de notificação de email, somente uma função que simula o envio desses emails em debito_automatico/backend/app/tasks/send_email.py
-
->>>>>>> fcf897459a26747fe057ddf9e5411ad9e7d7f5b5
-
+- OBS: não implementado o fluxo de notificação de email, somente uma função que simula o envio desses emails em debito_automatico/backend/app/tasks/send_email.py
