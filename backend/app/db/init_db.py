@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.core import config
-from app.db import base
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly

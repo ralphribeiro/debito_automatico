@@ -37,9 +37,9 @@ async def get_automatic_debit_request(
                                         owner_id=current_user.id)
 
 
-@router.put("/{debit_id}", response_model=schemas.Debit)
+@router.put("/{owner_id}", response_model=schemas.Debit)
 async def update_status(
-    debit_id: int,
+    owner_id: int,
     status: StatusRequest,
     db: Session = Depends(deps.get_db),
     current_user: models.User = Depends(deps.get_current_active_superuser),
@@ -47,18 +47,18 @@ async def update_status(
     """
     Update Automatic Debit Status.
     """
-    debit = crud.debit.get(db, id=debit_id)
+    debit = crud.debit.get_by_owner(db, owner_id=owner_id)
     if not debit:
         raise HTTPException(status_code=sts.HTTP_404_NOT_FOUND,
                             detail="Not Found automatic debit request by id")
 
     obj_in = DebitUpdate(status=status)
+    debit_out = crud.debit.update_status(db, db_obj=debit, obj_in=obj_in)
+    
     if status == StatusRequest.canceled or StatusRequest.approved:
         user = crud.user.get(db, id=debit.owner_id)
         celery_app.send_task("app.tasks.send_email.email_task",
                              args=[status, user.email])
-
-    debit_out = crud.debit.update_status(db, db_obj=debit, obj_in=obj_in)
     return debit_out
 
 

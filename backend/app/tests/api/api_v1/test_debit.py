@@ -34,7 +34,7 @@ def test_cancel_request_automatic_debit_with_super_user(
     status_in = "canceled"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=superuser_token_headers
     )
     assert res.status_code == 200
@@ -50,7 +50,7 @@ def test_cancel_request_automatic_debit_with_normal_user(
     status_in = "canceled"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=normal_user_token_headers
     )
     assert res.status_code == 400
@@ -64,7 +64,7 @@ def test_approve_request_automatic_debit_with_super_user(
     status_in = "approved"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=superuser_token_headers
     )
     assert res.status_code == 200
@@ -80,7 +80,7 @@ def test_approve_request_automatic_debit_with_normal_user(
     status_in = "canceled"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=normal_user_token_headers
     )
     assert res.status_code == 400
@@ -94,7 +94,7 @@ def test_reject_request_automatic_debit_with_super_user(
     status_in = "rejected"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=superuser_token_headers
     )
     assert res.status_code == 200
@@ -110,7 +110,7 @@ def test_reject_request_automatic_debit_with_normal_user(
     status_in = "rejected"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=normal_user_token_headers
     )
     assert res.status_code == 400
@@ -124,7 +124,7 @@ def test_invalid_status_request_automatic_debit_with_super_user(
     status_in = "papibaquigrafo"
     debit = create_debit_request(db)
     res = client.put(
-        f"{config.API_V1_STR}/debits/{debit.id}?status={status_in}",
+        f"{config.API_V1_STR}/debits/{debit.owner_id}?status={status_in}",
         headers=superuser_token_headers
     )
     assert res.status_code == 422

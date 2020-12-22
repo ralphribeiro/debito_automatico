@@ -77,7 +77,25 @@ services:
       FIRST_SUPERUSER: 'superuser@admin.com'
       FIRST_SUPERUSER_PASSWORD: 'superuserpassword'
     depends_on:
-      - "postgres"
+      - postgres
+
+  locust:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes: 
+      - ./locust:/mnt/locust
+    command: -f /mnt/locust/api.py
+    depends_on:
+      - backend
+
+  worker_locust:
+    image: locustio/locust
+    volumes:
+      - ./locust:/mnt/locust
+    command: -f /mnt/locust/api.py --worker --master-host locust
+    depends_on:
+      - backend
 
 volumes:
   db-data:
