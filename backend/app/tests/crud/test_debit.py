@@ -42,7 +42,7 @@ def test_update_automatic_debit(db: Session):
     user = create_random_user(db)
     debit = crud.debit.create_with_owner(db=db,
                                          obj_in=debit_in, owner_id=user.id)
-    status = "aprovado"
+    status = "approved"
     debit_update = DebitUpdate(status=status)
     debit2 = crud.debit.update_status(db, db_obj=debit, obj_in=debit_update)
     assert debit_update.status == status
