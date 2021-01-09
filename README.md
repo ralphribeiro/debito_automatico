@@ -72,5 +72,5 @@ avaliação backend T10
 ----------
 
 OBS: 
-- não implementado o fluxo de notificação de email, somente uma função que simula o envio desses emails em: **debito_automatico/backend/app/tasks/send_email.py
-- os usuários e chaves estão em: **docker-compose.yml
+- não implementado o fluxo de notificação de email, somente uma função que simula o envio desses emails em: debito_automatico/backend/app/tasks/send_email.py
+- os usuários e chaves estão em: docker-compose.yml
