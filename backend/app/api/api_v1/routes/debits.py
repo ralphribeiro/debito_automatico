@@ -55,7 +55,7 @@ async def update_status(
     obj_in = DebitUpdate(status=status)
     debit_out = crud.debit.update_status(db, db_obj=debit, obj_in=obj_in)
     
-    if status == StatusRequest.canceled or StatusRequest.approved:
+    if status in (StatusRequest.canceled, StatusRequest.approved):
         user = crud.user.get(db, id=debit.owner_id)
         celery_app.send_task("app.tasks.send_email.email_task",
                              args=[status, user.email])
