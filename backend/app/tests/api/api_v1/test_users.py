@@ -11,12 +11,13 @@ from app.tests.utils.utils import random_email, random_lower_string
 
 def test_get_superuser_me(client: TestClient,
                           superuser_token_headers: Dict[str, str]):
-    res = client.get(f"{config.API_V1_STR}/users/me",
-                     headers=superuser_token_headers)
-    current_user = res.json()
-    assert current_user
-    assert current_user["is_active"] is True
-    assert current_user["is_superuser"] is True
+    for _ in range(10):
+        res = client.get(f"{config.API_V1_STR}/users/me",
+                        headers=superuser_token_headers)
+        current_user = res.json()
+        assert current_user
+        assert current_user["is_active"] is True
+        assert current_user["is_superuser"] is True
 
 
 def test_get_normal_user_me(client: TestClient,
